@@ -1,0 +1,27 @@
+--create table employee(eid int, dob date  fname varchar(50), lname varchar(50), gender varchar(20),doj date,destination varchar(20),salary long, did varchar(20));
+--drop table Department;
+/*create table department(
+  did int primary key,
+  d_name varchar(50));
+ 
+INSERT INTO department VALUES 
+('d001','Marketing'),
+('d002','Finance'),
+('d003','Human Resources'),
+('d004','Production'),
+('d005','Development'),
+('d006','Quality Management'),
+('d007','Sales'),
+('d008','Research'),
+('d009','Customer Service');
+ */
+--create table employee(eid int, dob date , fname varchar(50), lname varchar(50), gender varchar(20),doj date,destination varchar(20),salary long,  did varchar(50), PRIMARY KEY (eid) ,FOREIGN KEY (did) REFERENCES department (did) ON DELETE CASCADE);
+  insert into employee VALUES (10001,'1953-09-02','Georgi','Facello','M','1986-06-26','India',12000,'d002'),
+(10002,'1964-06-02','Bezalel','Simmel','F','1985-11-21','Korea',12000,'d001'),
+(10003,'1959-12-03','Parto','Bamford','M','1986-08-28','America',12500,'d003'),
+(10004,'1954-05-01','Chirstian','Koblick','M','1986-12-01','northKorea',58000,'d004'),
+(10005,'1955-01-21','Kyoichi','Maliniak','M','1989-09-12','Africa',59800,'d005'),
+(10006,'1953-04-20','Anneke','Preusig','F','1989-06-02','Brazil',65000,'d006'),
+(10007,'1957-05-23','Tzvetan','Zielinski','F','1989-02-10','Indonishia',53340,'d007'),
+(10008,'1958-02-19','Saniya','Kalloufi','M','1994-09-15','Japan',17600,'d008'),
+(10009,'1952-04-19','Sumant','Peac','F','1985-02-18','chin',12098,'d009');

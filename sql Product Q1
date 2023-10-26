@@ -1,0 +1,71 @@
+create database mydb;
+use mydb;
+
+create table admin (
+ id varchar(30) primary key,
+ admin_name varchar(40), 
+ email_id varchar(50), 
+ password varchar(12)); 
+ 
+insert into admin values( '1' ,'Ria','ria@gamil.com','ria123'),
+                        ( '2' ,'Ali','Ali@gamil.com','ali23'),
+                        ( '3' ,'Ajay','ajay@gamil.com','ajay23'),
+                        ( '4' ,'Vijay','vijay@gamil.com','vijay123'),
+                        ( '5' ,'Sahil','sahil@gamil.com','sahil123'),
+                        ( '6' ,'Tiger','@gtigeramil.com','Tiger123'),
+                        ( '7' ,'Jackie','ria@gamil.com','jakie123');
+                        
+   select * from admin;    
+   
+create table user 
+(id varchar(30) primary key, 
+user_name varchar(20),
+ email_id varchar(60),
+ password varchar(20),
+ gender char(1), 
+ city  varchar(40),
+ mobile_number char(10),
+ zipcode char(6));
+ 
+ insert into user  values( '1' ,'Ria','ria@gamil.com','ria123','f','Uaipur','9876543215','311277'),
+                        ( '2' ,'Alim','alim@gamil.com','alim23','m','karachi', '9876503215','879877'),
+                        ( '3' ,'Aj','aj@gamil.com','aj23','m','Pune', '9976543215','764532'),
+                        ( '4' ,'Jay','jay@gamil.com','jay123','m','latur','9876993215','413518'),
+                        ( '5' ,'Aahil','aahil@gamil.com','aahil123','m','Delhi','9896543215','786543'),
+                        ( '6' ,'Rohit','rohit@gamil.com','rohit123','m','Mumbai','9876543875','411267'),
+                        ( '7' ,'Akshata','akshat@gamil.com','akshata123','m','udgir','9879843215','413517');
+ 
+ 
+ 
+create table Product
+ (id varchar(30) primary key, 
+ product_name varchar(30), 
+ category varchar(10),
+ price float, 
+ quantity SMALLINT,
+ offers varchar(20), 
+ description varchar(40),
+ foreign key Product (id) references Payment_method(id));
+ 
+ insert into Product values('1','Mobile','c1','12.34','2','offer1','des1'),
+                            ('2','Tab','c2','11.34','7','offer2','des2'),
+                            ('3','Laptop','c3','11.77','8','offer6','des3'),
+                            ('4','Tv','c4','89.76','8','offer5','des4'),
+                            ('5','LED','c5','35.89','2','offer1','des5'),
+                            ('6','Desktop','c6','23.94','1','offer2','des6'),
+                            ('7','macbook','c7','18.94','4','offer7','des7');
+ 
+ drop table Payment_method;
+create table Payment_method
+(id varchar(30) primary key, 
+account_holder_name varchar(50), 
+account_number char(11),
+foreign key Product(id) references Payment_method.id);
+
+insert into Payment_method values('1','Tae','10001200001'),
+                                  ('2','Jin','10001200002'),
+                                  ('3','Jinkook','10001200003'),
+                                  ('4','RM','10001200004'),
+                                  ('5','Jimin','10001200005'),
+                                  ('6','Suga','10001200006'),
+                                  ('7','Jhope','10001200007');

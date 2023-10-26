@@ -69,3 +69,42 @@ insert into Payment_method values('1','Tae','10001200001'),
                                   ('5','Jimin','10001200005'),
                                   ('6','Suga','10001200006'),
                                   ('7','Jhope','10001200007');
+
+
+
+
+---------Answers----------
+
+ select min(price), max(price),avg(price) from Product;
+ 
+ select count(*) as number_of_users
+ from user where length(password)<5;
+ 
+ select trim(product_name) as trimed_name, category,price from Product;
+ 
+ select category, sum(price) as total_investment
+ from Product 
+ group by category
+ order by total_investment desc
+ limit 1;
+ 
+ select substring(user_name, 1,5) as first_5, locate('a',user_name)
+ from user where id<5;
+ 
+ select length('Great Learning')-length(replace('Great Learning','a','')) as total_count;
+ 
+ select * from user
+ where registration_date between 'date1' and 'date2';
+ 
+ select * from Product where category in('c1','c2','c4') and price < 10000;
+ 
+ select * from product where binary product_name = upper(product_name);
+ 
+ select * from product order by price desc;
+ 
+ alter table user
+ modify email_id varchar(255) not null,
+ modify mobile_number char(10) not null;
+ 
+ alter table user
+ add constraint unique (email_id, mobile_number);

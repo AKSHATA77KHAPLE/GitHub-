@@ -1,0 +1,129 @@
+create database mydb;
+use mydb;
+
+create table admin (
+ id varchar(30) primary key,
+ admin_name varchar(40), 
+ email_id varchar(50), 
+ password varchar(12)); 
+ 
+insert into admin values( '1' ,'Ria','ria@gamil.com','ria123'),
+                        ( '2' ,'Ali','Ali@gamil.com','ali23'),
+                        ( '3' ,'Ajay','ajay@gamil.com','ajay23'),
+                        ( '4' ,'Vijay','vijay@gamil.com','vijay123'),
+                        ( '5' ,'Sahil','sahil@gamil.com','sahil123'),
+                        ( '6' ,'Tiger','@gtigeramil.com','Tiger123'),
+                        ( '7' ,'Jackie','ria@gamil.com','jakie123');
+                        
+   select * from admin;    
+ drop table user;  
+create table user 
+(user_id varchar(30) primary key, 
+user_name varchar(20),
+ email varchar(60),
+ password varchar(20),
+ gender char(1), 
+ city  varchar(40),
+ mobile char(10),
+ zip_code char(6));
+ 
+ insert into user  values( '1' ,'Ria','ria@gamil.com','ria123','f','Uaipur','9876543215','311277'),
+                        ( '2' ,'Alim','alim@gamil.com','alim23','m','karachi', '9876503215','879877'),
+                        ( '3' ,'Aj','aj@gamil.com','aj23','m','Pune', '9976543215','764532'),
+                        ( '4' ,'Jay','jay@gamil.com','jay123','m','latur','9876993215','413518'),
+                        ( '5' ,'Aahil','aahil@gamil.com','aahil123','m','Delhi','9896543215','786543'),
+                        ( '6' ,'Rohit','rohit@gamil.com','rohit123','m','Mumbai','9876543875','411267'),
+                        ( '7' ,'Akshata','akshat@gamil.com','akshata123','m','udgir','9879843215','413517');
+ 
+ 
+drop table Product;
+ 
+create table Product
+ (Product_id varchar(30) primary key, 
+ user_id int,
+ product_name varchar(30), 
+ category varchar(10),
+ price float, 
+ quantity SMALLINT,
+ offers varchar(20), 
+ description varchar(40)
+   );
+ 
+ insert into Product values('1','1','Electronics','c1','12.34','2','offer1','des1'),
+                            ('2','2','Grocery','c2','11.34','7','offer2','des2'),
+                            ('3','3','Electronics','c3','11.77','8','offer6','des3'),
+                            ('4','4','Stainary','c4','89.76','8','offer5','des4'),
+                            ('5','5',' Furniture','c5','35.89','2','offer1','des5'),
+                            ('6','6','Grocery ','c6','23.94','1','offer2','des6'),
+                            ('7','7','Furniture','c7','18.94','4','offer7','des7');
+ 
+drop table Orders; 
+
+create table Orders (Order_id varchar(30) primary key,
+Product_id varchar(40),
+user_id varchar(30),
+date_of_order date,
+shipment_details varchar(255),
+payment_method varchar(100)); 
+
+insert into Orders values('1','1','1','2000-07-07','address A','Credit Card'),
+						('2','2','2','2000-06-12','address B','Cash'),
+                        ('3','3','3','2001-10-17','address B','UPI'),
+                        ('4','4','4','2008-09-07','address a','Credit Card'),
+                        ('5','5','5','2005-07-07','address a','UPI'),
+                        ('6','6','6','2001-11-07','address a','Card'),
+                        ('7','7','7','2004-12-08','address a','Credit Card');
+                        
+ select  COUNT(p.product_id) as number_of_products 
+ from Product p 
+ WHERE p.category ='Electronics'
+ order by product_id;
+ 
+ select p.category, sum(p.price) as total_price
+ from Product p  
+ group by p.category;
+
+ 
+ select p.product_id, p.product_name, p.price
+ from Product p
+ where p.price =(select min(price) from Product);
+ 
+ select category , avg(price) as avg_price, count(*) as number_of_products
+ from Product
+ where category='Electronics';
+ 
+ select price, count(*)  as number_of_products
+ from Product
+ Group By price
+ having count(*) > 1;
+ 
+ select count(*) as number_of_ordered_products
+ from Orders
+ where date_of_order=curdate();
+ 
+ 
+ select count(*) as number_of_ordered_products
+ from Orders
+ where year(date_of_order)= Year(curdate())
+ and month(date_of_order)=month(curdate())-1;
+ 
+ select count(*) as number_of_ordered_products
+ from Orders
+ where year(date_of_order)= Year(curdate())
+ and month(date_of_order)=month(curdate())-1;
+ 
+ select p1.product_name as product_name_1, p2.product_name as product_name_2, p1.price
+ from Product p1
+ join Product p2 on p1.price = p2.price
+ where p1.category = 'Furniture' and p2.category = 'Electronics'
+ and p1.product_id <> p2.product_id;
+ 
+ select sum(price) as total_purcase
+ from Orders o
+ join Product p on o.product_id = p.product_id
+ where date_of_order = curdate() - interval 1 day;
+ 
+ select datediff(curdate(),now()) as date_difference;
+ 
+select product_name, coalesce(description, 'no description') as product_description
+from Product;  

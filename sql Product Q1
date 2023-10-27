@@ -74,6 +74,7 @@ insert into Payment_method values('1','Tae','10001200001'),
 
 
 ---------Answers----------
+ select  count(product_name), category from product order by category;
 
  select min(price), max(price),avg(price) from Product;
  

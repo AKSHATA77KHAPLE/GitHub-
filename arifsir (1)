@@ -1,0 +1,40 @@
+Species,Category,Period,Annual_percentage
+Greenfinch (Chloris chloris),Farmland birds,(1970-2014),-1.13                   
+Siskin (Carduelis spinus),Woodland birds,(1995-2014),2.26
+European shag (Phalacrocorax artistotelis),Seabirds,(1986-2014),-2.31    
+Mute Swan (Cygnus olor),Water and wetland birds,(1975-2014),1.65                    
+Collared Dove (Streptopelia decaocto),Other,(1970-2014),5.2  
+
+
+
+from pyspark.sql import SparkSession
+from  pyspark.sql.functions import *
+
+def create_spark_session():
+    spark=SparkSession.builder.appName('create a new file').master('local[*]').getOrCreate()
+    return spark
+def file():
+    df=spark.read.format('csv').option('header','true').load('hdfs://cdhserver:8020/user/labuser/HFS/Input/ankit.csv')\
+
+    return df
+def get_English_name(mydf):
+    abc_col=r'\(\w{1,13} \w{1,12}\)'
+    abc=mydf.withColumn('braclet',regexp_extract('Species',abc_col,0))\
+          .withColumn('English_Words',expr('substring(Species,1,length(Species)-length(braclet))'))\
+          .select("Species","English_Words")
+    return abc
+def Start_yaer(mydf):
+    re_col=r'\((\d{4})'
+    b_col=r'\-\d{4}$\)'
+    re=mydf.withColumn('starting_year',regexp_extract('Period',re_col,1))\
+        .withColumn('end_year',regexp_extract('Period',b_col,0))
+    return re
+
+if __name__ == '__main__':
+
+    spark=create_spark_session()
+    # print(spark)
+    mydf=file()
+    mydf.show(truncate=False)
+    a1=get_English_name(mydf)
+    a1.show(truncate=False)
